@@ -1,0 +1,94 @@
+// RegistrationForm.jsx
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const RegistrationForm = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: ""
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Save registration data temporarily in localStorage
+    localStorage.setItem("registrationData", JSON.stringify({
+      name: formData.name,
+      email: formData.email
+    }));
+    // Redirect to profile form page
+    navigate("/profile-form");
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>Name:</label>
+      <input name="name" value={formData.name} onChange={handleChange} required />
+      <label>Email:</label>
+      <input name="email" type="email" value={formData.email} onChange={handleChange} required />
+      <label>Password:</label>
+      <input name="password" type="password" value={formData.password} onChange={handleChange} required />
+      <button type="submit">Register</button>
+    </form>
+  );
+};
+
+export default RegistrationForm;
+
+// ProfileForm.jsx
+import React, { useState, useEffect } from "react";
+
+const ProfileForm = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    speciality: "",
+    licenseNumber: ""
+    // other fields...
+  });
+
+  useEffect(() => {
+    // Load saved registration data from localStorage
+    const savedData = localStorage.getItem("registrationData");
+    if (savedData) {
+      const { name, email } = JSON.parse(savedData);
+      setFormData((prev) => ({
+        ...prev,
+        name: name || "",
+        email: email || ""
+      }));
+    }
+  }, []);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Submit profile form data to backend or further processing
+    console.log("Profile form submitted:", formData);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>Doctor Name:</label>
+      <input name="name" value={formData.name} onChange={handleChange} required />
+      <label>Doctor Email:</label>
+      <input name="email" type="email" value={formData.email} onChange={handleChange} required />
+      <label>Speciality:</label>
+      <input name="speciality" value={formData.speciality} onChange={handleChange} />
+      <label>License Number:</label>
+      <input name="licenseNumber" value={formData.licenseNumber} onChange={handleChange} />
+      {/* Add other fields as needed */}
+      <button type="submit">Submit Profile</button>
+    </form>
+  );
+};
+
+export default ProfileForm;

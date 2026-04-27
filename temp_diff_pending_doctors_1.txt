@@ -1,0 +1,125 @@
+<div className='m-5 max-h-[90vh] overflow-y-scroll'>
+      <p className='mb-3 text-lg font-medium'>Pending Doctor Requests</p>
+      <div className='w-full flex flex-wrap gap-4 pt-5 gap-y-6'>
+        {doctors.map((item, index) => (
+          <div className='border border-indigo-200 rounded-xl max-w-56 overflow-hidden cursor-pointer group' key={index}>
+            <img className='bg-indigo-50 group-hover:bg-primary transition-all duration-500' src={item.image} alt="" />
+            <div className='p-4'>
+              <p className='text-neutral-800 text-lg font-medium'>{item.name}</p>
+              <p className='text-zinc-600 text-sm'>{item.speciality}</p>
+              <p className='text-zinc-600 text-sm'>{item.education}</p>
+              <p className='text-zinc-600 text-sm'>{item.experience}</p>
+              <p className='text-zinc-600 text-sm'>{item.address.line1}, {item.address.line2}</p>
+              <p className='text-zinc-600 text-sm'>Fees: ${item.fees}</p>
+              <p className='text-zinc-600 text-sm'>License: {item.licenseNumber}</p>
+              <div className='mt-2 flex gap-2'>
+                <button onClick={() => approveDoctor(item._id)} className='bg-green-500 text-white px-3 py-1 rounded text-sm'>Approve</button>
+                <button onClick={() => rejectDoctor(item._id)} className='bg-red-500 text-white px-3 py-1 rounded text-sm'>Reject</button>
+              </div>
+              {item.licenseDocument && (
+                <a href={item.licenseDocument} target="_blank" rel="noopener noreferrer" className='text-blue-500 text-sm underline'>View License</a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+=======
+  return (
+    <div className='m-5 max-h-[90vh] overflow-y-auto'>
+      <p className='mb-3 text-lg font-medium'>Pending Doctor Requests</p>
+      <table className='w-full border-collapse border border-gray-300'>
+        <thead>
+          <tr className='bg-gray-100'>
+            <th className='border border-gray-300 p-2 text-left'>Name</th>
+            <th className='border border-gray-300 p-2 text-left'>Email</th>
+            <th className='border border-gray-300 p-2'>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {doctors.map((item) => (
+            <React.Fragment key={item._id}>
+              <tr
+                className='cursor-pointer hover:bg-gray-50'
+                onClick={() => toggleExpand(item._id)}
+              >
+                <td className='border border-gray-300 p-2'>{item.name}</td>
+                <td className='border border-gray-300 p-2'>{item.email}</td>
+                <td className='border border-gray-300 p-2 text-center'>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      approveDoctor(item._id)
+                    }}
+                    className='bg-green-500 text-white px-3 py-1 rounded text-sm mr-2'
+                  >
+                    Approve
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      rejectDoctor(item._id)
+                    }}
+                    className='bg-red-500 text-white px-3 py-1 rounded text-sm'
+                  >
+                    Reject
+                  </button>
+                </td>
+              </tr>
+              {expandedDoctorId === item._id && (
+                <tr>
+                  <td colSpan={3} className='border border-gray-300 p-4 bg-gray-50'>
+                    <div><strong>Speciality:</strong> {item.speciality}</div>
+                    <div><strong>Education:</strong> {item.education}</div>
+                    <div><strong>Experience:</strong> {item.experience}</div>
+                    <div><strong>Address:</strong> {item.address?.line1}, {item.address?.line2}</div>
+                    <div><strong>Fees:</strong> ${item.fees}</div>
+                    <div><strong>License Number:</strong> {item.licenseNumber}</div>
+                    {item.licenseDocument && (
+                      <div>
+                        <a
+                          href={item.licenseDocument}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className='text-blue-500 underline'
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          View License Document
+                        </a>
+                      </div>
+                    )}
+                    {item.profilePicture && (
+                      <div className='mt-2'>
+                        <img
+                          src={item.profilePicture}
+                          alt="Profile"
+                          className='max-w-xs max-h-48 rounded'
+                          onClick={(e) => e.stopPropagation()}
+                        />
+                      </div>
+                    )}
+                    {item.aadharCard && (
+                      <div className='mt-2'>
+                        <a
+                          href={item.aadharCard}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className='text-blue-500 underline'
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          View Aadhar Card
+                        </a>
+                      </div>
+                    )}
+                  </td>
+                </tr>
+              )}
+            </React.Fragment>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}

@@ -1,0 +1,5 @@
+const [profilePicture, setProfilePicture] = useState(null);
+=======
+  const [licenseDocument, setLicenseDocument] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [aadharCard, setAadharCard] = useState(null);

@@ -1,0 +1,22 @@
+1. for create project:  npm create vite@latest
+2. install router-dom: npm install axios react-router-dom react-toastify
+3. run project : npm run dev
+4. install tailwindcss dependancies : npm install -D tailwindcss postcss autoprefixer
+5. create tailwind.config.js file : npx tailwindcss init -p
+
+website for command : tailwindcss.com
+
+----for backend
+
+1. create package.json = npm init
+2. install express and mongoose ,multer bcrypt cloudinary cors dotenv jsonwebtoken nodemon validator: npm install express mongoose multer bcrypt cloudinary cors dotenv jsonwebtoken nodemon validator
+    
+3. add this line in package.json file after start for frequent output : "server": "nodemon server.js"
+
+cloud.mongodb.com
+
+4. create environment variable in .env file: MONGODB_URI = 'you url find in above website'
+ex: MONGODB_URI = 'mongodb+srv://harsh4590:Harsh4590@cluster0.cinagip.mongodb.net/'
+ 
+
+convert into json file:online json stringify
